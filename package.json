@@ -1,0 +1,47 @@
+{
+  "name": "parse-reasoning",
+  "version": "1.0.0",
+  "description": "用于处理AI模型流式输出Reasoning的过程。",
+  "main": "./dist/parseReasoning.cjs.js",
+  "module": "./dist/parseReasoning.esm.js",
+  "scripts": {
+    "build": "rm -rf ./dist && webpack",
+    "release": "release-it",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/titusTong/parseReasoning.git"
+  },
+  "keywords": [
+    "reasoning",
+    "reason",
+    "think",
+    "thought"
+  ],
+  "author": "titusTong",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/titusTong/parseReasoning/issues"
+  },
+  "homepage": "https://github.com/titusTong/parseReasoning#readme",
+  "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/plugin-transform-runtime": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "@release-it/conventional-changelog": "^10.0.0",
+    "release-it": "^18.1.2"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^10.0.0",
+    "babel-plugin-add-module-exports": "^1.0.4",
+    "babel-preset-env": "^1.7.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1"
+  }
+}
