@@ -1,1 +1,67 @@
-var e={d:(t,n)=>{for(var r in n)e.o(n,r)&&!e.o(t,r)&&Object.defineProperty(t,r,{enumerable:!0,get:n[r]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t)},t={};e.d(t,{A:()=>r});const n=["think","reason","reasoning","thought"],r=e=>{try{const t=[],r=new RegExp(`<(${n.join("|")})>`,"i"),o=new RegExp(`</(${n.join("|")})>`,"i");let i=0,s=!1;for(;i<e.length;){const n=e.slice(i).match(r),c=e.slice(i).match(o);if(s||!n){if(s&&c){const n=e.slice(i,i+c.index);n.trim()&&t.push({type:"reasoning",content:n.trim()}),s=!1,i+=c.index+c[0].length}else if(i<e.length){const n=e.slice(i);t.push({type:s?"reasoning":"text",content:n.trim(),reasoning_running:s});break}}else{const r=e.slice(i,i+n.index);r.trim()&&t.push({type:"text",content:r.trim()}),s=!0,i+=n.index+n[0].length}}return t}catch(t){return console.error(`Error parsing reasoning: ${t}`),[{type:"text",content:e}]}};var o=t.A;export{o as default};
+const tags = ["think", "reason", "reasoning", "thought"];
+const parseReasoning = (text) => {
+  try {
+    const result = [];
+    const tagPattern = new RegExp(`<(${tags.join("|")})>`, "i");
+    const closeTagPattern = new RegExp(`</(${tags.join("|")})>`, "i");
+
+    let currentIndex = 0;
+    let isReasoning = false;
+
+    while (currentIndex < text.length) {
+      const openTagMatch = text.slice(currentIndex).match(tagPattern);
+      const closeTagMatch = text.slice(currentIndex).match(closeTagPattern);
+
+      if (!isReasoning && openTagMatch) {
+        const beforeText = text.slice(
+          currentIndex,
+          currentIndex + openTagMatch.index
+        );
+        if (beforeText.trim()) {
+          result.push({ type: "text", content: beforeText.trim() });
+        }
+
+        isReasoning = true;
+        currentIndex += openTagMatch.index + openTagMatch[0].length;
+        continue
+      }
+
+      if (isReasoning && closeTagMatch) {
+        const reasoningContent = text.slice(
+          currentIndex,
+          currentIndex + closeTagMatch.index
+        );
+        if (reasoningContent.trim()) {
+          result.push({ type: "reasoning", content: reasoningContent.trim() });
+        }
+
+        isReasoning = false;
+        currentIndex += closeTagMatch.index + closeTagMatch[0].length;
+        continue
+      }
+
+      if (currentIndex < text.length) {
+        const remainingText = text.slice(currentIndex);
+        result.push({
+          type: isReasoning ? "reasoning" : "text",
+          content: remainingText.trim(),
+          reasoning_running: isReasoning
+        });
+        break
+      }
+    }
+
+    return result
+  } catch (e) {
+    console.error(`Error parsing reasoning: ${e}`);
+    return [
+      {
+        type: "text",
+        content: text
+      }
+    ]
+  }
+};
+
+export { parseReasoning as default };
+//# sourceMappingURL=parseReasoning.esm.js.map

@@ -1,1 +1,69 @@
-!function(e,t){if("object"==typeof exports&&"object"==typeof module)module.exports=t();else if("function"==typeof define&&define.amd)define([],t);else{var n=t();for(var o in n)("object"==typeof exports?exports:e)[o]=n[o]}}(this,(()=>(()=>{"use strict";var e={d:(t,n)=>{for(var o in n)e.o(n,o)&&!e.o(t,o)&&Object.defineProperty(t,o,{enumerable:!0,get:n[o]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r:e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}},t={};e.r(t),e.d(t,{default:()=>o});const n=["think","reason","reasoning","thought"],o=e=>{try{const t=[],o=new RegExp(`<(${n.join("|")})>`,"i"),r=new RegExp(`</(${n.join("|")})>`,"i");let i=0,s=!1;for(;i<e.length;){const n=e.slice(i).match(o),c=e.slice(i).match(r);if(s||!n){if(s&&c){const n=e.slice(i,i+c.index);n.trim()&&t.push({type:"reasoning",content:n.trim()}),s=!1,i+=c.index+c[0].length}else if(i<e.length){const n=e.slice(i);t.push({type:s?"reasoning":"text",content:n.trim(),reasoning_running:s});break}}else{const o=e.slice(i,i+n.index);o.trim()&&t.push({type:"text",content:o.trim()}),s=!0,i+=n.index+n[0].length}}return t}catch(t){return console.error(`Error parsing reasoning: ${t}`),[{type:"text",content:e}]}};return t})()));
+'use strict';
+
+const tags = ["think", "reason", "reasoning", "thought"];
+const parseReasoning = (text) => {
+  try {
+    const result = [];
+    const tagPattern = new RegExp(`<(${tags.join("|")})>`, "i");
+    const closeTagPattern = new RegExp(`</(${tags.join("|")})>`, "i");
+
+    let currentIndex = 0;
+    let isReasoning = false;
+
+    while (currentIndex < text.length) {
+      const openTagMatch = text.slice(currentIndex).match(tagPattern);
+      const closeTagMatch = text.slice(currentIndex).match(closeTagPattern);
+
+      if (!isReasoning && openTagMatch) {
+        const beforeText = text.slice(
+          currentIndex,
+          currentIndex + openTagMatch.index
+        );
+        if (beforeText.trim()) {
+          result.push({ type: "text", content: beforeText.trim() });
+        }
+
+        isReasoning = true;
+        currentIndex += openTagMatch.index + openTagMatch[0].length;
+        continue
+      }
+
+      if (isReasoning && closeTagMatch) {
+        const reasoningContent = text.slice(
+          currentIndex,
+          currentIndex + closeTagMatch.index
+        );
+        if (reasoningContent.trim()) {
+          result.push({ type: "reasoning", content: reasoningContent.trim() });
+        }
+
+        isReasoning = false;
+        currentIndex += closeTagMatch.index + closeTagMatch[0].length;
+        continue
+      }
+
+      if (currentIndex < text.length) {
+        const remainingText = text.slice(currentIndex);
+        result.push({
+          type: isReasoning ? "reasoning" : "text",
+          content: remainingText.trim(),
+          reasoning_running: isReasoning
+        });
+        break
+      }
+    }
+
+    return result
+  } catch (e) {
+    console.error(`Error parsing reasoning: ${e}`);
+    return [
+      {
+        type: "text",
+        content: text
+      }
+    ]
+  }
+};
+
+module.exports = parseReasoning;
+//# sourceMappingURL=parseReasoning.cjs.js.map
