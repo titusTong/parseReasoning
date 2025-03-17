@@ -1,6 +1,6 @@
 {
   "name": "parse-reasoning",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "用于处理AI模型流式输出Reasoning的过程。",
   "main": "./dist/parseReasoning.cjs.js",
   "module": "./dist/parseReasoning.esm.js",
