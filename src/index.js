@@ -63,4 +63,4 @@ const parseReasoning = (text) => {
   }
 }
 
-module.exports = parseReasoning;
+export default parseReasoning;

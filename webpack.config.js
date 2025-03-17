@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = [
     {
         mode: 'production', // 环境
-        entry: './index.js', // 入口文件
+        entry: './src/index.js', // 入口文件
         output: {
             path: path.resolve(__dirname, './dist'), // 输出文件夹
             filename: 'parseReasoning.cjs.js', // 文件名称
@@ -33,7 +33,7 @@ module.exports = [
         },
     },{
         mode: 'production', // 环境
-        entry: './index.js', // 入口文件
+        entry: './src/index.js', // 入口文件
         output: {
             path: path.resolve(__dirname, './dist'), // 输出文件夹
             filename: 'parseReasoning.esm.js', // 文件名称
