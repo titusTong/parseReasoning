@@ -1,7 +1,7 @@
 {
   "name": "parse-reasoning",
   "version": "1.0.3",
-  "description": "用于处理AI模型流式输出Reasoning的过程。",
+  "description": "A process for handling the streaming output of reasoning from AI models.",
   "main": "dist/parseReasoning.cjs.js",
   "module": "dist/parseReasoning.esm.js",
   "files": [
@@ -18,10 +18,14 @@
     "url": "git+https://github.com/titusTong/parseReasoning.git"
   },
   "keywords": [
+    "parse",
+    "reasoning",
+    "parse-reasoning",
     "reasoning",
     "reason",
     "think",
-    "thought"
+    "thought",
+    "ai-reasoning"
   ],
   "author": "titusTong",
   "license": "MIT",
