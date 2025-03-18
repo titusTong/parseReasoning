@@ -1,6 +1,6 @@
 {
   "name": "parse-reasoning",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A process for handling the streaming output of reasoning from AI models.",
   "main": "dist/parseReasoning.cjs.js",
   "module": "dist/parseReasoning.esm.js",
