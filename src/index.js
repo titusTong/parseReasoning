@@ -1,9 +1,20 @@
-const tags = ["think", "reason", "reasoning", "thought"]
-const parseReasoning = (text) => {
+/**
+ * 解析给定文本中的推理内容
+ * 该函数尝试识别文本中关于思考或推理的部分这些部分被特定的标签标记出来
+ * 如果提供了自定义标签，则使用这些标签；否则，使用默认标签
+ * 
+ * @param {string} text - 待解析的文本
+ * @param {string|string[]} tags - 用于标识推理部分的标签可以是单个标签字符串，也可以是标签字符串数组
+ * @returns {Object[]} 解析结果数组，每个元素包含类型（"text" 或 "reasoning"）和内容
+ */
+const parseReasoning = (text, tags) => {
   try {
+    const defaultTags = ["think", "reason", "reasoning", "thought"];
+    const usedTags = tags ? (Array.isArray(tags) ? tags : [tags]) : defaultTags;
+
     const result = []
-    const tagPattern = new RegExp(`<(${tags.join("|")})>`, "i")
-    const closeTagPattern = new RegExp(`</(${tags.join("|")})>`, "i")
+    const tagPattern = new RegExp(`<(${usedTags.join("|")})>`, "i")
+    const closeTagPattern = new RegExp(`</(${usedTags.join("|")})>`, "i")
 
     let currentIndex = 0
     let isReasoning = false
